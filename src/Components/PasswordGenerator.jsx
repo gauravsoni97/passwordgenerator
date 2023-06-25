@@ -1,5 +1,7 @@
 import { Slider } from "@mui/material";
 import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const lowercaseList = "abcdefghijklmnopqrstuvwxyz";
 const uppercaseList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -56,6 +58,25 @@ const PasswordGenerator = () => {
     setPassword(generatedPassword);
   };
 
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(password);
+
+    toast.success('👍 Copied to clipboard!', {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition:'slide'
+      });
+  };
+
+
+
   return (
     <>
       <form>
@@ -69,7 +90,7 @@ const PasswordGenerator = () => {
             placeholder="Generated Password..."
             value={password}
           />
-          <button
+          <button onClick={copyToClipboard}
             type="button"
             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br -4 focus:outline-none -blue-300 dark:-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-2"
           >
@@ -162,6 +183,7 @@ const PasswordGenerator = () => {
           Generate Password
         </button>
       </form>
+        <ToastContainer/>
     </>
   );
 };

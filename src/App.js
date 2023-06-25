@@ -1,5 +1,7 @@
 import React from "react";
 import PasswordGenerator from "./Components/PasswordGenerator";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const App = () => {
   return (
