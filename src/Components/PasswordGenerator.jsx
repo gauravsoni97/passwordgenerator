@@ -53,8 +53,7 @@ const PasswordGenerator = () => {
       characterList += symbolList;
     }
 
-    console.log(characterList);
-
+    console.log(characterList.length);
 
     let generatedPassword = "";
     const characterListLength = characterList.length;
@@ -65,9 +64,6 @@ const PasswordGenerator = () => {
     }
 
     setPassword(generatedPassword);
-
-
-
   };
 
   return (
