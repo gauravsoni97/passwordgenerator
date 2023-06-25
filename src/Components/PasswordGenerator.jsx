@@ -15,20 +15,31 @@ const PasswordGenerator = () => {
   const [symbols, setSymbols] = useState(true);
   const [passwordLength, setPasswordLength] = useState(8);
 
+  const [selectedChoice, setSelectedChoice] = useState([
+    "lowercase",
+    "uppercase",
+    "numbers",
+    "symbols",
+  ]);
+
   const handleLowerCase = () => {
     setLowerCase(!lowerCase);
+    handleCheckbox("lowercase")
   };
-
+  
   const handleUpperCase = () => {
     setUpperCase(!upperCase);
+    handleCheckbox("uppercase")
   };
-
+  
   const handleNumbers = () => {
     setNumbers(!numbers);
+    handleCheckbox("numbers")
   };
-
+  
   const handleSymbols = () => {
     setSymbols(!symbols);
+    handleCheckbox("symbols")
   };
 
   const handlePasswordLength = (e, value) => {
@@ -43,7 +54,6 @@ const PasswordGenerator = () => {
       ...(symbols ? symbolList : ""),
     ].join("");
 
-    console.log(characterList.length);
 
     let generatedPassword = "";
     const characterListLength = characterList.length;
@@ -76,13 +86,21 @@ const PasswordGenerator = () => {
   };
 
   useEffect(() => {
-   generatePassword();
-  }, [password.length])
+    generatePassword();
+  }, [password.length]);
 
+  const handleCheckbox = (type) => {
+    let tempChoices = selectedChoice;
+    if (tempChoices.includes(type)) {
+      const index = tempChoices.indexOf(type);
 
-  
-  
-  
+      tempChoices.splice(index, 1);
+    } else {
+      tempChoices.push(type);
+    }
+
+  };
+
   return (
     <>
       <form>
@@ -114,6 +132,7 @@ const PasswordGenerator = () => {
               checked={lowerCase}
               onChange={handleLowerCase}
               className="sr-only peer"
+              disabled={selectedChoice.length===1 && selectedChoice.includes("lowercase")}
             />
             <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -128,6 +147,8 @@ const PasswordGenerator = () => {
               checked={upperCase}
               onChange={handleUpperCase}
               className="sr-only peer"
+              disabled={selectedChoice.length===1 && selectedChoice.includes("uppercase")}
+
             />
             <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -142,6 +163,8 @@ const PasswordGenerator = () => {
               checked={numbers}
               onChange={handleNumbers}
               className="sr-only peer"
+              disabled={selectedChoice.length===1 && selectedChoice.includes("numbers")}
+
             />
             <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
 
@@ -157,6 +180,8 @@ const PasswordGenerator = () => {
               checked={symbols}
               onChange={handleSymbols}
               className="sr-only peer"
+              disabled={selectedChoice.length===1 && selectedChoice.includes("symbols")}
+
             />
             <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
