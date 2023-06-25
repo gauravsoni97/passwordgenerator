@@ -1,7 +1,6 @@
 import { Slider } from "@mui/material";
-import React, { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const lowercaseList = "abcdefghijklmnopqrstuvwxyz";
 const uppercaseList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -37,14 +36,13 @@ const PasswordGenerator = () => {
   };
 
   const generatePassword = () => {
-  
     const characterList = [
       ...(lowerCase ? lowercaseList : ""),
       ...(upperCase ? uppercaseList : ""),
       ...(numbers ? numberList : ""),
       ...(symbols ? symbolList : ""),
     ].join("");
-  
+
     console.log(characterList.length);
 
     let generatedPassword = "";
@@ -58,25 +56,33 @@ const PasswordGenerator = () => {
     setPassword(generatedPassword);
   };
 
-
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(password);
+    const copied = navigator.clipboard.readText();
 
-    toast.success('👍 Copied to clipboard!', {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      transition:'slide'
+    if (copied !== password && password.length) {
+      navigator.clipboard.writeText(password);
+
+      toast.success("Copied to clipboard!", {
+        position: "bottom-center",
+        autoClose: 500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
+    }
   };
 
+  useEffect(() => {
+   generatePassword();
+  }, [password.length])
 
 
+  
+  
+  
   return (
     <>
       <form>
@@ -90,7 +96,8 @@ const PasswordGenerator = () => {
             placeholder="Generated Password..."
             value={password}
           />
-          <button onClick={copyToClipboard}
+          <button
+            onClick={copyToClipboard}
             type="button"
             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br -4 focus:outline-none -blue-300 dark:-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-2"
           >
@@ -183,7 +190,7 @@ const PasswordGenerator = () => {
           Generate Password
         </button>
       </form>
-        <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };
