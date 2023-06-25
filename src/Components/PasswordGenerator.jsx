@@ -54,6 +54,20 @@ const PasswordGenerator = () => {
     }
 
     console.log(characterList);
+
+
+    let generatedPassword = "";
+    const characterListLength = characterList.length;
+
+    for (let i = 0; i < passwordLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characterListLength);
+      generatedPassword += characterList[randomIndex];
+    }
+
+    setPassword(generatedPassword);
+
+
+
   };
 
   return (
