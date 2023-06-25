@@ -35,24 +35,14 @@ const PasswordGenerator = () => {
   };
 
   const generatePassword = () => {
-    let characterList = "";
-
-    if (lowerCase) {
-      characterList += lowercaseList;
-    }
-
-    if (upperCase) {
-      characterList += uppercaseList;
-    }
-
-    if (numbers) {
-      characterList += numberList;
-    }
-
-    if (symbols) {
-      characterList += symbolList;
-    }
-
+  
+    const characterList = [
+      ...(lowerCase ? lowercaseList : ""),
+      ...(upperCase ? uppercaseList : ""),
+      ...(numbers ? numberList : ""),
+      ...(symbols ? symbolList : ""),
+    ].join("");
+  
     console.log(characterList.length);
 
     let generatedPassword = "";
