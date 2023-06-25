@@ -1,6 +1,11 @@
 import { Slider } from "@mui/material";
 import React, { useState } from "react";
 
+const lowercaseList = "abcdefghijklmnopqrstuvwxyz";
+const uppercaseList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const numberList = "0123456789";
+const symbolList = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
   const [lowerCase, setLowerCase] = useState(true);
@@ -9,19 +14,19 @@ const PasswordGenerator = () => {
   const [symbols, setSymbols] = useState(true);
   const [passwordLength, setPasswordLength] = useState(8);
 
-  const handleLowerCase = (e) => {
+  const handleLowerCase = () => {
     setLowerCase(!lowerCase);
   };
 
-  const handleUpperCase = (e) => {
+  const handleUpperCase = () => {
     setUpperCase(!upperCase);
   };
 
-  const handleNumbers = (e) => {
+  const handleNumbers = () => {
     setNumbers(!numbers);
   };
 
-  const handleSymbols = (e) => {
+  const handleSymbols = () => {
     setSymbols(!symbols);
   };
 
@@ -30,8 +35,25 @@ const PasswordGenerator = () => {
   };
 
   const generatePassword = () => {
-    // Password generation logic based on selected options and length
-    // Update the password state with the generated password
+    let characterList = "";
+
+    if (lowerCase) {
+      characterList += lowercaseList;
+    }
+
+    if (upperCase) {
+      characterList += uppercaseList;
+    }
+
+    if (numbers) {
+      characterList += numberList;
+    }
+
+    if (symbols) {
+      characterList += symbolList;
+    }
+
+    console.log(characterList);
   };
 
   return (
@@ -65,7 +87,7 @@ const PasswordGenerator = () => {
               onChange={handleLowerCase}
               className="sr-only peer"
             />
-           <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
+            <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
               Include LowerCase (a-z)
             </span>
@@ -79,7 +101,7 @@ const PasswordGenerator = () => {
               onChange={handleUpperCase}
               className="sr-only peer"
             />
-          <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
+            <div className="w-8 h-5 bg-gray-200  peer--4 peer--blue-300 dark:peer--blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto"></div>
             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
               Include UpperCase (A-Z)
             </span>
@@ -125,6 +147,7 @@ const PasswordGenerator = () => {
               value={passwordLength}
               onChange={handlePasswordLength}
               aria-label="Password Length Slider"
+              defaultValue={passwordLength}
               min={8}
               max={32}
               step={1}
